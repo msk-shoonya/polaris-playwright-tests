@@ -1,0 +1,25 @@
+{
+  "name": "polaris",
+  "version": "1.0.0",
+  "description": "Polaris Playwright TypeScript coding challenge",
+  "main": "index.js",
+  "scripts": {
+    "test": "playwright test",
+    "test:main": "cross-env RUN_ENV=main playwright test",
+    "test:buggy": "cross-env RUN_ENV=buggy playwright test",
+    "test:ui:main": "cross-env RUN_ENV=main playwright test tests/ui",
+    "test:ui:buggy": "cross-env RUN_ENV=buggy playwright test tests/ui",
+    "test:api:main": "cross-env RUN_ENV=main playwright test tests/api --project=api-tests",
+    "test:api:buggy": "cross-env RUN_ENV=buggy playwright test tests/api --project=api-tests",
+    "report": "playwright show-report"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@playwright/test": "^1.59.1",
+    "@types/node": "^25.5.2",
+    "cross-env": "^7.0.3",
+    "dotenv": "^17.4.1"
+  }
+}
