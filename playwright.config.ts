@@ -4,7 +4,8 @@ import dotenv from 'dotenv';
 
 dotenv.config({ path: path.resolve(__dirname, '.env') });
 
-const environment = process.env.RUN_ENV || 'main';
+type Env = 'main' | 'buggy';
+const environment = (process.env.RUN_ENV as Env) || 'main';
 
 const envConfig = {
   main: {
@@ -21,11 +22,7 @@ if (!(environment in envConfig)) {
   throw new Error(`Invalid RUN_ENV: ${environment}. Use "main" or "buggy".`);
 }
 
-const { uiBaseUrl, apiBaseUrl } = envConfig[environment as keyof typeof envConfig];
-
-console.log(`Running tests against: ${environment}`);
-console.log(`UI Base URL: ${uiBaseUrl}`);
-console.log(`API Base URL: ${apiBaseUrl}`);
+const { uiBaseUrl, apiBaseUrl } = envConfig[environment];
 
 export default defineConfig({
   testDir: './tests',
@@ -34,14 +31,12 @@ export default defineConfig({
   retries: process.env.CI ? 2 : 0,
   workers: process.env.CI ? 1 : undefined,
   reporter: [['html'], ['list']],
-
   use: {
     baseURL: uiBaseUrl,
     trace: 'on-first-retry',
     screenshot: 'only-on-failure',
     video: 'on-first-retry',
   },
-
   projects: [
     {
       name: 'chromium-ui',
@@ -76,3 +71,4 @@ export default defineConfig({
     },
   ],
 });
+

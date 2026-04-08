@@ -111,3 +111,76 @@ Covers all user stories
 Supports environment switching
 Identifies real defects
 Follows maintainable automation practices
+
+🔌 API Testing
+
+API tests are implemented using Playwright’s built-in request fixture and are integrated into the same framework as UI tests.
+
+📁 Location
+tests/api/
+▶️ Run API Tests
+Main environment
+npm run test:api:main
+Buggy environment
+npm run test:api:buggy
+
+🧪 API Coverage
+The following backend functionalities are covered:
+User Story	API Endpoint
+US3 Search Product	GET /products/search
+US5 Login	POST /users/login
+US6 Add to Cart	POST /carts
+US7 View Cart	GET /carts/{id}
+US8 Payment Validation	POST /payment/check
+US9 Order History	GET /invoices
+
+📊 API Test Results
+✅ Main Environment
+8 / 8 tests passed
+All core API functionalities behave as expected.
+
+🐞 Buggy Environment
+6 / 8 tests passed
+2 / 8 tests failed
+❌ Failed Scenarios
+Add Product to Cart (POST /carts)
+Get Cart by ID (GET /carts/{id})
+🐛 Identified API Issues
+1. Cart Creation Failure
+
+Endpoint: POST /carts
+User Stories Impacted: US6, US7
+
+Steps to Reproduce:
+
+Login with valid credentials
+Send request to add product to cart
+Observe response
+
+Expected:
+Cart is created successfully
+
+Actual:
+Request fails in buggy environment
+
+Impact:
+Users cannot add items to cart
+
+2. Cart Retrieval Blocked
+
+Endpoint: GET /carts/{id}
+User Stories Impacted: US6, US7
+
+Expected:
+Cart should be retrievable after creation
+
+Actual:
+Cart creation fails, blocking retrieval
+
+Impact:
+Cart validation and update flows cannot proceed
+
+🧠 Notes
+API endpoints were identified using browser DevTools (Network → Fetch/XHR), simulating real-world API discovery.
+API tests complement UI tests and validate backend consistency.
+The POST /invoices endpoint was explored but not included due to unclear request dependencies and to maintain test stability.
