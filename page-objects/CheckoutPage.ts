@@ -64,13 +64,6 @@ export default class CheckoutPage extends BasePage {
         });
     }
 
-    // async fillBillingAddress(state: string, postalCode: string): Promise<void> {
-    //     await this.page.locator(this.stateInputSelector).click();
-    //     await this.page.locator(this.stateInputSelector).fill(state);
-
-    //     await this.page.locator(this.postalCodeInputSelector).click();
-    //     await this.page.locator(this.postalCodeInputSelector).fill(postalCode);
-    // }
 
     async proceedToPayment(): Promise<void> {
         await this.getProceedToPaymentButton().click();
@@ -99,7 +92,6 @@ export default class CheckoutPage extends BasePage {
 
         await finishButton.click();
 
-        // Codegen showed a second click may be needed before confirmation appears
         if (await finishButton.isVisible().catch(() => false)) {
             await finishButton.click();
         }
@@ -117,19 +109,17 @@ export default class CheckoutPage extends BasePage {
     const stateInput = this.page.locator(this.stateInputSelector);
     const postalInput = this.page.locator(this.postalCodeInputSelector);
 
-    // STATE
     await stateInput.click();
     await stateInput.press('Control+A');
     await stateInput.press('Backspace');
     await stateInput.type(state, { delay: 50 });
 
-    // POSTCODE
     await postalInput.click();
     await postalInput.press('Control+A');
     await postalInput.press('Backspace');
     await postalInput.type(postalCode, { delay: 50 });
 
-    // 👇 IMPORTANT: trigger Angular validation
+
     await postalInput.press('Tab');
 }
 }

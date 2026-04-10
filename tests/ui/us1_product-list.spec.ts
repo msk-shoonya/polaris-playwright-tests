@@ -30,16 +30,6 @@ test.describe('User Story 1: View Product List', () => {
     await expect(page).toHaveURL(/\/product\//);
   });
 
-  // test('US1 - Edge: should show a different set of products when navigating to the next page', async () => {
-  //   const firstProductNameBefore = await homePage.getFirstProductName();
-  //   expect(firstProductNameBefore).not.toBe('');
-
-  //   await homePage.goToNextPage();
-
-  //   const firstProductNameAfter = await homePage.getFirstProductName();
-  //   expect(firstProductNameAfter).not.toBe('');
-  //   expect(firstProductNameAfter).not.toBe(firstProductNameBefore);
-  // });
 
   test('US1 - Edge: should show a different set of products when navigating to the next page', async ({ page }) => {
     const firstProductNameBefore = await homePage.getFirstProductName();
